@@ -51,9 +51,11 @@ pip install -r requirements.txt
 ---
 
 ## **🚀 Running the FastAPI Server**
+Instead of using Uvicorn, start the server with sudo python assign.py:
 ```bash
-uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+sudo python assign.py
 ```
+✅ This ensures the server runs with the required permissions.
 🔗 **Visit the API documentation:**  
 📜 Swagger UI → [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)  
 📜 ReDoc UI → [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)  
