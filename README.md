@@ -35,7 +35,7 @@ cd fastapi-web-scraper
 ### **2️⃣ Create a Virtual Environment**  
 ```bash
 # On macOS/Linux
-python3 -m venv venv
+python3.9.7 -m venv venv
 source venv/bin/activate
 
 # On Windows
