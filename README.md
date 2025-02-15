@@ -9,7 +9,6 @@ This FastAPI-based server extracts and processes content from any external URL, 
 ✅ **Scrape Any Website** – Extracts text from any URL (supports Depth = 1 recursion).  
 ✅ **Stores Data in ChromaDB** – Uses **`all-MiniLM-L6-v2`** embeddings for efficient search.  
 ✅ **AI-Powered Querying** – Retrieves relevant text and generates responses using **BART (`facebook/bart-large-cnn`)**.  
-✅ **Respects `robots.txt`** – Ensures compliance with web scraping rules.  
 ✅ **Auto-Deletes Database** – Removes ChromaDB after execution for cleanup.  
 ✅ **Optimized for Production** – Works seamlessly on **local machines or cloud servers**.  
 
