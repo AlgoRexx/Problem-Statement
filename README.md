@@ -32,15 +32,15 @@ git clone https://github.com/your-username/fastapi-web-scraper.git
 cd fastapi-web-scraper
 ```
 
-### **2️⃣ Create a Virtual Environment**  
+### **Ensure Python 3.9.7 is Installed (Using Conda)
+This project requires Python 3.9.7, so set up a Conda environment.**  
+🔹 Step 1: Create a Conda Environment
 ```bash
-# On macOS/Linux
-python3.9.7 -m venv venv
-source venv/bin/activate
-
-# On Windows
-python -m venv venv
-venv\Scripts\activate
+conda create --name fastapi_scraper python=3.9.7 -y
+```
+🔹 Step 2: Activate the Conda Environment
+```bash
+conda activate fastapi_scraper
 ```
 
 ### **3️⃣ Install Dependencies**  
