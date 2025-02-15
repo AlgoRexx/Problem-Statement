@@ -15,7 +15,7 @@ This FastAPI-based server extracts and processes content from any external URL, 
 ## **📂 Project Structure**  
 ```
 📁 fastapi-web-scraper
-│── main.py                 # FastAPI server with scraping & query endpoints
+│── assign.py                 # FastAPI server with scraping & query endpoints
 │── requirements.txt        # Dependencies for easy installation
 │── README.md               # Documentation (this file)
 │── .gitignore              # Ignore database & environment files
