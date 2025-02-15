@@ -1,5 +1,3 @@
-### **✅ Updated README (Without Jupyter Notebook Support)**  
-
 # **FastAPI Web Scraper with Vector Search (ChromaDB + Hugging Face Models)**  
 
 ### **📌 Overview**  
