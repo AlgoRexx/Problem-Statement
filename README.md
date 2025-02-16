@@ -32,8 +32,9 @@ git clone https://github.com/your-username/fastapi-web-scraper.git
 cd fastapi-web-scraper
 ```
 
-### **Ensure Python 3.9.7 is Installed (Using Conda)
-This project requires Python 3.9.7, so set up a Conda environment.**  
+### **2️⃣ Ensure Python 3.9.7 is Installed (Using Conda)**  
+This project requires Python 3.9.7, so set up a Conda environment.  
+
 🔹 Step 1: Create a Conda Environment
 ```bash
 conda create --name fastapi_scraper python=3.9.7 -y
@@ -51,11 +52,12 @@ pip install -r requirements.txt
 ---
 
 ## **🚀 Running the FastAPI Server**
-Instead of using Uvicorn, start the server with sudo python assign.py:
+Instead of using Uvicorn, start the server with:  
 ```bash
 sudo python assign.py
 ```
-✅ This ensures the server runs with the required permissions.
+✅ This ensures the server runs with the required permissions.  
+
 🔗 **Visit the API documentation:**  
 📜 Swagger UI → [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)  
 📜 ReDoc UI → [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)  
@@ -83,12 +85,28 @@ Extracts text from a webpage (including Depth = 1 links), converts it into vecto
 }
 ```
 
-**🔹 CURL Command:**  
+**🔹 cURL Command:**  
 ```bash
 curl -X 'POST' 'http://127.0.0.1:8000/url-parser' \
      -H 'Content-Type: application/json' \
      -d '{"url": "https://en.wikipedia.org/wiki/Artificial_intelligence"}'
 ```
+
+**🔹 Postman Request:**  
+1. Open **Postman**  
+2. **Set method to `POST`**  
+3. **Enter URL:**  
+   ```
+   http://127.0.0.1:8000/url-parser
+   ```
+4. **Go to "Body" tab** → Select **raw** → Choose **JSON** format.
+5. **Paste this JSON:**
+   ```json
+   {
+     "url": "https://en.wikipedia.org/wiki/Artificial_intelligence"
+   }
+   ```
+6. Click **Send**
 
 ---
 
@@ -111,51 +129,64 @@ Searches stored embeddings for relevant text and generates an **AI-powered respo
 }
 ```
 
-**🔹 CURL Command:**  
+**🔹 cURL Command:**  
 ```bash
 curl -X 'POST' 'http://127.0.0.1:8000/query' \
      -H 'Content-Type: application/json' \
      -d '{"query": "What is Artificial Intelligence?"}'
 ```
 
----
-
-## **🔍 How It Works**
-1. **Scraping & Processing:**
-   - Extracts webpage text and linked pages (**Depth = 1**).
-   - Splits text into **512-character chunks**.
-   - Converts chunks into **vector embeddings** (`all-MiniLM-L6-v2`).
-   - Stores embeddings in **ChromaDB**.
-
-2. **Querying & AI Response:**
-   - Converts the **query into an embedding**.
-   - Searches **ChromaDB for the most relevant stored text**.
-   - Uses **Hugging Face's BART model** to generate an answer.
-
----
-
-## **📌 Error Handling**
-| **Error** | **Possible Cause** | **Solution** |
-|-----------|------------------|-------------|
-| `"Scraping is disallowed by robots.txt"` | The website blocks scrapers | Use a different website or check if the site has an API |
-| `"Attempt to write a readonly database"` | ChromaDB is in a protected folder | Run `chmod -R 777 chroma_db` (Linux/macOS) or move it to `/tmp/` |
-| `"No relevant results found"` | Query doesn't match stored embeddings | Try a different query |
+**🔹 Postman Request:**  
+1. Open **Postman**  
+2. **Set method to `POST`**  
+3. **Enter URL:**  
+   ```
+   http://127.0.0.1:8000/query
+   ```
+4. **Go to "Body" tab** → Select **raw** → Choose **JSON** format.
+5. **Paste this JSON:**
+   ```json
+   {
+     "query": "What is Artificial Intelligence?"
+   }
+   ```
+6. Click **Send**
 
 ---
 
-## **🗑️ Auto-Delete ChromaDB After Execution**
-To prevent unnecessary storage, **ChromaDB is deleted after execution** using FastAPI's shutdown event:
-```python
-@app.on_event("shutdown")
-async def delete_chroma_db():
-    """Deletes the ChromaDB database after the program exits."""
-    if os.path.exists(DB_PATH):
-        print(f"🗑️ Deleting ChromaDB database at {DB_PATH}...")
-        shutil.rmtree(DB_PATH, ignore_errors=True)
-        print("✅ ChromaDB deleted successfully.")
+## **📌 Import Postman Collection**
+To make testing easier, you can **import a Postman collection** instead of manually setting everything up.
+
+1. Open **Postman**  
+2. Click **"Import"**  
+3. Select **"Raw text"** and paste this JSON:  
+```json
+{
+  "info": {
+    "name": "FastAPI Scraper API",
+    "_postman_id": "abcd-1234",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Scrape Website",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": { "raw": "http://127.0.0.1:8000/url-parser" },
+        "body": { "mode": "raw", "raw": "{ \"url\": \"https://en.wikipedia.org/wiki/Artificial_intelligence\" }" }
+      }
+    },
+    {
+      "name": "Query Stored Data",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": { "raw": "http://127.0.0.1:8000/query" },
+        "body": { "mode": "raw", "raw": "{ \"query\": \"What is Artificial Intelligence?\" }" }
+      }
+    }
+  ]
+}
 ```
-✅ This ensures **no leftover data after execution**.
-
----  
-
-🚀 Happy coding! 😊
+4. Click **Import**, and both endpoints will be ready to use!
