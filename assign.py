@@ -31,8 +31,10 @@ collection = chroma_client.get_or_create_collection(
     embedding_function=SentenceTransformerEmbeddingFunction("all-MiniLM-L6-v2")
 )
 
-# Load Hugging Face Text Generation Model
-generator = pipeline("text-generation", model="facebook/bart-large-cnn")
+# Load T5-Small for Text Generation
+generator = pipeline("text2text-generation", model="t5-small")
+
+
 
 # Define API request models
 class URLInput(BaseModel):
@@ -162,8 +164,8 @@ async def query_embeddings(payload: QueryInput):
     print(f"🤖 Generating response using AI model...")
     response = generator(
         f"Answer this: {payload.query} Context: {retrieved_text}",
-        max_length=50,  # Limit response length
-        truncation=True  # Ensure it doesn't exceed the limit
+        max_length=170,
+        truncation=True
     )[0]["generated_text"]
 
     return {
